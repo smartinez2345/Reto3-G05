@@ -23,8 +23,30 @@ def load_data(control):
     """
     Carga los datos
     """
-    #TODO: Realizar la carga de datos
-    pass
+    print("Bienvenido al Aplicativo, estas son las opciones de archivos que se encuentran disponibles:")
+    print("1 - flights-test.csv")
+    print("2 - flights-small.csv")
+    print("3 - flights-medium.csv")
+    print("4 - flights-large.csv")
+    filename = int(input("Por favor ingrese el tamaño del archivo que desea cargar (1-2-3-4): "))
+
+    start_load_data = logic.get_time()
+    catalog = logic.load_data(control,filename)
+    end_load_data = logic.get_time()
+    delta_time_load_data = logic.delta_time(start_load_data,end_load_data)
+    size_registers = lt.size(catalog["lista_vuelos"])
+    list_tabulate = logic.load_data_present_info(catalog)
+
+
+    print("====================== CARGA DE DATOS ======================")
+    print("La carga de datos tomo un tiempo en milisegundos (ms) de",delta_time_load_data)
+    print("\n")
+    print("El numero de registros de vuelos fue de",size_registers)
+    print("\n")
+    print("====================== TABLA TABULATE ======================")
+    print(tabulate(list_tabulate,headers=["Fecha Vuelo","Hora Salida Real","Hora Llegada Real","Codigo Aerolinea","Nombre Aerolinea","Identificador Aeronave",
+                                          "Codigo Origen","Codigo Destino","Distancia (Millas)","Duracion (Minutos)"],tablefmt="fancy_grid"))
+
 
 
 def print_data(control, id):
